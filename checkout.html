@@ -1,46 +1,68 @@
 <!DOCTYPE html>
 <html lang="th"> <!-- ระบุว่าเอกสารนี้เป็น HTML และใช้ภาษาไทย -->
 <head>
-  <meta charset="UTF-8"/> <!-- กำหนดการเข้ารหัสอักขระเป็น UTF-8 -->
-  <meta name="viewport" content="width=device-width, initial-scale=1"/> <!-- ปรับให้รองรับการแสดงผลบนอุปกรณ์มือถือ -->
-  <title>เช็คเอาต์ – WorkPing Time</title> <!-- ชื่อหน้าที่จะแสดงบนแท็บเบราว์เซอร์ -->
+  <!-- กำหนด meta สำหรับ character set และ responsive -->
+  <meta charset="UTF-8"/> <!-- กำหนดการเข้ารหัสเป็น UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"/> <!-- ปรับให้รองรับอุปกรณ์มือถือ -->
+  <title>เช็คเอาต์ – WorkPing Time</title> <!-- ชื่อหน้าแสดงบนแท็บเบราว์เซอร์ -->
   <style>
-    * { box-sizing:border-box; margin:0; padding:0 } /* รีเซ็ต margin และ padding ให้เป็น 0 */
+    * { box-sizing: border-box; margin: 0; padding: 0; } /* รีเซ็ต margin, padding ของทุกองค์ประกอบ */
     html, body {
-      width:100%; height:100%; /* กำหนดให้เต็มพื้นที่หน้าจอ */
-      font-family:'Sarabun', sans-serif; /* ใช้ฟอนต์ Sarabun */
-      background:url('background.png') center/cover no-repeat; /* พื้นหลังแบบ cover */
-      color:#fff; text-align:center; /* ข้อความสีขาว จัดกึ่งกลาง */
+      width: 100%; /* กำหนดให้เต็มความกว้าง */
+      height: 100%; /* กำหนดให้เต็มความสูง */
+      font-family: 'Sarabun', sans-serif; /* ใช้ฟอนต์ Sarabun */
+      background: url('background.png') center/cover no-repeat; /* พื้นหลังแบบ cover */
+      color: #fff; /* สีข้อความเป็นขาว */
+      text-align: center; /* จัดข้อความกึ่งกลาง */
     }
     header {
-      display:flex; justify-content:center; align-items:center; /* ใช้ Flexbox จัดกึ่งกลาง */
-      padding:20px 0; /* เว้นขอบบน-ล่าง 20px */
+      display: flex; /* ใช้ Flexbox */
+      justify-content: center; /* จัดแนวนอนกึ่งกลาง */
+      align-items: center; /* จัดแนวตั้งกึ่งกลาง */
+      padding: 20px 0; /* เว้นช่องว่างบน-ล่าง */
     }
-    header img { max-width:160px; height:auto } /* กำหนดขนาดโลโก้ */
+    header img { max-width: 160px; height: auto; } /* โลโก้: กำหนดความกว้างสูงสุด */
     .form-container {
-      width:90%; max-width:400px; margin:20px auto; text-align:left; /* กรอบฟอร์มกึ่งกลาง จัดซ้าย */
+      width: 90%; /* กว้าง 90% ของหน้าจอ */
+      max-width: 400px; /* ไม่เกิน 400px */
+      margin: 20px auto; /* เว้นขอบบน-ล่าง และกึ่งกลาง */
+      text-align: left; /* จัดข้อความซ้าย */
     }
     .form-container label {
-      display:block; font-size:18px; margin:10px 0 5px; /* สไตล์ป้ายกำกับ */
+      display: block; /* แสดงเป็นบล็อก */
+      font-size: 18px; /* ขนาดข้อความ */
+      margin: 10px 0 5px; /* เว้นช่องว่างรอบๆ */
     }
     .form-container input[type="text"],
     .form-container input[type="file"] {
-      width:100%; padding:12px; margin-bottom:15px; /* กล่องกรอกข้อมูลเต็มกว้าง */
-      border:3px solid #fff; border-radius:6px; /* ขอบและมุมมน */
-      background:rgba(255,255,255,0.1); color:#fff; font-size:16px; /* พื้นหลังโปร่ง ข้อความสีขาว */
+      width: 100%; /* กว้างเต็ม container */
+      padding: 12px; /* ช่องว่างภายใน */
+      margin-bottom: 15px; /* เว้นขอบล่าง */
+      border: 3px solid #fff; /* ขอบเป็นสีขาว หนา 3px */
+      border-radius: 6px; /* มุมโค้งมน */
+      background: rgba(255,255,255,0.1); /* พื้นหลังโปร่งแสง */
+      color: #fff; /* ข้อความสีขาว */
+      font-size: 16px; /* ขนาดข้อความ */
     }
     .form-container button {
-      width:100%; padding:15px; border:none; border-radius:8px; /* ปุ่มเต็มกว้าง มุมมน */
-      background:#ff8c00; color:#fff; font-size:20px; font-weight:bold; /* สไตล์สีปุ่ม */
-      cursor:pointer; transition:opacity .2s; /* แสดง pointer และ animation */
+      width: 100%; /* ปุ่มกว้างเต็ม */
+      padding: 15px; /* ช่องว่างภายใน */
+      border: none; /* ไม่มีขอบ */
+      border-radius: 8px; /* มุมโค้งมน */
+      background: #ff8c00; /* พื้นหลังส้ม */
+      color: #fff; /* ข้อความสีขาว */
+      font-size: 20px; /* ขนาดข้อความ */
+      font-weight: bold; /* ตัวหนา */
+      cursor: pointer; /* เปลี่ยน cursor เมื่อชี้ */
+      transition: opacity .2s; /* ทำ transition เมื่อตกแต่ง */
     }
-    .form-container button:hover { opacity:.8 } /* ลดความทึบเมื่อ hover */
-    #position { font-size:16px; margin-bottom:20px } /* ข้อความตำแหน่ง GPS */
+    .form-container button:hover { opacity: .8; } /* ลดความทึบเมื่อ hover */
+    #position { font-size: 16px; margin-bottom: 20px; } /* ข้อความตำแหน่ง GPS */
   </style>
 </head>
 <body>
   <header>
-    <!-- แสดงโลโก้ WorkPing Time เพียงภาพเดียว -->
+    <!-- แสดงโลโก้ WorkPing Time ภาพเดียว -->
     <img src="Logo WorkPingTime.png" alt="WorkPing Time">
   </header>
 
@@ -56,63 +78,65 @@
   </div>
 
   <script>
-    const WEBHOOK_URL = 'https://hkdk.events/tpzuykguhk7zwo'; // URL สำหรับส่งข้อมูล
+    const WEBHOOK_URL = 'https://hkdk.events/tpzuykguhk7zwo'; // URL สำหรับส่งข้อมูลไปยัง backend
 
-    // ขอสิทธิ์เข้าถึงตำแหน่งผู้ใช้ และอัพเดตค่าใน <p id="position">
+    // ขอสิทธิ์เข้าถึงตำแหน่งผู้ใช้ และอัพเดต <p id="position">
     navigator.geolocation.getCurrentPosition(pos => {
-      const lat = pos.coords.latitude.toFixed(6); // ตัดทศนิยมละติจูด 6 ตำแหน่ง
-      const lng = pos.coords.longitude.toFixed(6); // ตัดทศนิยมลองจิจูด 6 ตำแหน่ง
-      document.getElementById('position').innerText = `ตำแหน่ง: ${lat}, ${lng}`; // แทรกค่า lat, lng
+      const lat = pos.coords.latitude.toFixed(6);    // ตัดทศนิยมละติจูด 6 ตำแหน่ง
+      const lng = pos.coords.longitude.toFixed(6);   // ตัดทศนิยมลองจิจูด 6 ตำแหน่ง
+      document.getElementById('position').innerText = `ตำแหน่ง: ${lat}, ${lng}`; // แสดงผลตำแหน่ง
     });
 
     function submitCheckout() {
-      const nameInput  = document.getElementById('name'); // อ้างอิงช่องกรอกชื่อ
-      const photoInput = document.getElementById('photo'); // อ้างอิงช่องอัพโหลดรูป
+      const nameInput  = document.getElementById('name');  // ดึง element ช่องกรอกชื่อ
+      const photoInput = document.getElementById('photo'); // ดึง element ช่องอัพโหลดรูป
 
-      const name = nameInput.value.trim(); // ดึงค่าชื่อและตัดช่องว่างปลาย
-      const file = photoInput.files[0]; // ดึงไฟล์ภาพตัวแรก
+      const name = nameInput.value.trim();  // ดึงค่าชื่อและตัดช่องว่างข้างหน้า/ข้างหลัง
+      const file = photoInput.files[0];     // ดึงไฟล์ภาพตัวแรกจาก input[type=file]
       const [ , latRaw, lngRaw ] = document.getElementById('position').innerText.split(' '); // แยกข้อความตำแหน่ง
       const lat = latRaw.replace(',', ''); // ลบเครื่องหมายจุลภาค
       const lng = lngRaw;
 
       if (!name || !file) {
-        return alert('กรุณากรอกชื่อและถ่ายรูปก่อนออกงาน'); // ตรวจข้อมูลครบไหม
+        return alert('กรุณากรอกชื่อและถ่ายรูปก่อนออกงาน'); // แจ้งเตือนหากข้อมูลไม่ครบ
       }
 
-      const reader = new FileReader(); // สร้างตัวอ่านไฟล์
+      const reader = new FileReader(); // สร้างตัวอ่านไฟล์ภาพ
       reader.onload = () => {
         const dataUrl = reader.result; // อ่านไฟล์เป็น Data URL
-        const [meta, base64] = dataUrl.split(','); // แยกส่วน header กับข้อมูล
-        const mime = meta.match(/data:(.*?);/)[1]; // ดึงประเภทไฟล์
+        const [meta, base64] = dataUrl.split(','); // แยกส่วน header กับข้อมูล base64
+        const mime = meta.match(/data:(.*?);/)[1];   // ดึงประเภทไฟล์จาก meta
 
-        // สร้าง payload สำหรับส่ง
+        // สร้าง payload สำหรับส่งไป backend
         const payload = {
-          name: name,          // ชื่อพนักงาน
-          time: '',            // ไม่มีเวลาสำหรับ checkout
-          lat: lat,            // ละติจูด
-          lng: lng,            // ลองจิจูด
-          type: 'checkout',    // ประเภทการส่ง
-          imageName: file.name,// ชื่อไฟล์ภาพ
-          imageMime: mime,     // ประเภท MIME
-          imageBase64: base64  // ข้อมูลภาพ base64
+          name: name,             // ชื่อพนักงาน
+          time: '17:00',          // กำหนดเวลาออกงานอัตโนมัติเป็น 17:00
+          lat: lat,               // ละติจูด
+          lng: lng,               // ลองจิจูด
+          type: 'checkout',       // ประเภทการส่ง
+          imageName: file.name,   // ชื่อไฟล์ภาพ
+          imageMime: mime,        // MIMETYPE ของภาพ
+          imageBase64: base64     // ข้อมูลภาพในรูปแบบ base64
         };
 
-        // ส่งข้อมูลทาง Webhook
+        // ส่งข้อมูลโดยใช้ fetch ไปยัง WEBHOOK_URL
         fetch(WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         })
         .then(_ => {
-          const now = new Date().toLocaleTimeString(); // เวลาปัจจุบัน
-          window.location = `checkoutSuccess.html?time=${encodeURIComponent(now)}`; // ไปหน้าสำเร็จ
+          // หลังจากส่งสำเร็จ ให้ redirect ไปหน้า success พร้อมเวลาปัจจุบัน
+          const now = new Date().toLocaleTimeString(); // ดึงเวลาปัจจุบัน HH:MM:SS
+          window.location = `checkoutSuccess.html?time=${encodeURIComponent(now)}`;
         })
         .catch(_ => {
+          // กรณี error ให้ยัง redirect ไปหน้า success
           const now = new Date().toLocaleTimeString();
-          window.location = `checkoutSuccess.html?time=${encodeURIComponent(now)}`; // กรณี error ก็ไปหน้าสำเร็จ
+          window.location = `checkoutSuccess.html?time=${encodeURIComponent(now)}`;
         });
       };
-      reader.readAsDataURL(file); // เริ่มอ่านไฟล์ภาพ
+      reader.readAsDataURL(file); // เริ่มอ่านไฟล์ภาพเป็น Data URL
     }
   </script>
 </body>
