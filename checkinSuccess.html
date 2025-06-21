@@ -1,111 +1,58 @@
 <!DOCTYPE html>
-<html lang="th"><!-- ระบุว่าเป็นไฟล์ HTML และใช้ภาษาไทย -->
+<html lang="th"> <!-- ระบุว่าเป็น HTML5 และใช้ภาษาไทย -->
 <head>
-  <!-- ตั้งค่าส่วนหัวของเอกสาร -->
-  <meta charset="UTF-8"><!-- กำหนดการเข้ารหัสเป็น UTF-8 -->
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- ปรับให้หน้าเว็บรองรับมือถือ -->
-  <title>เช็คอินสำเร็จ – WorkPing Time</title><!-- ชื่อหน้าเว็บแสดงในแท็บเบราว์เซอร์ -->
+  <meta charset="UTF-8"> <!-- กำหนดการเข้ารหัสเป็น UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- รองรับมือถือ -->
+  <title>เช็คอินสำเร็จ – WorkPing Time</title> <!-- ชื่อหน้าในแท็บ -->
   <style>
-    /* รีเซ็ตค่ามาตรฐานของ margin, padding ให้เป็น 0 */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    /* กำหนดรูปแบบพื้นฐานของ html และ body */
+    * { box-sizing: border-box; margin: 0; padding: 0; } /* รีเซ็ต margin/padding */
     html, body {
-      width: 100%;               /* กว้างเต็มหน้าจอ */
-      height: 100%;              /* สูงเต็มหน้าจอ */
-      font-family: 'Sarabun', sans-serif; /* ใช้ฟอนต์ Sarabun */
-      background: url('background.png') center/cover no-repeat; /* พื้นหลังแบบ cover */
-      color: #fff;               /* ข้อความสีขาว */
-      text-align: center;        /* จัดข้อความตรงกลาง */
+      width: 100%; height: 100%;                        /* เต็มหน้าจอ */
+      font-family: 'Sarabun', sans-serif;                /* ฟอนต์ Sarabun */
+      background: url('background.png') center/cover no-repeat; /* พื้นหลัง */
+      color: #fff; text-align: center;                   /* ข้อความสีขาว จัดกึ่งกลาง */
     }
-
-    /* สไตล์ของ header */
     header {
-      display: flex;             /* ใช้ Flexbox */
-      justify-content: center;   /* จัด content กึ่งกลางแนวนอน */
-      align-items: center;       /* จัด content กึ่งกลางแนวตั้ง */
-      padding: 20px 0;           /* ระยะบน-ล่าง 20px */
+      display: flex; justify-content: center; align-items: center; padding: 20px 0;
     }
     header img {
-      max-width: 160px;          /* กำหนดความกว้างสูงสุดของโลโก้ */
-      height: auto;              /* ให้คำนวณสัดส่วนอัตโนมัติ */
+      max-width: 160px; height: auto;                    /* ขนาดโลโก้ */
     }
-
-    /* กล่องข้อความสำเร็จ */
     .success-box {
-      width: 90%;                /* กว้าง 90% ของหน้าจอ */
-      max-width: 400px;          /* แต่ไม่เกิน 400px */
-      margin: 30px auto;         /* เว้นขอบบนล่าง 30px กึ่งกลางแนวนอน */
-      padding: 20px;             /* ช่องว่างภายใน 20px */
-      border: 3px solid #fff;    /* ขอบสีขาว หนา 3px */
-      border-radius: 8px;        /* ขอบมนรัศมี 8px */
+      width: 90%; max-width: 400px; margin: 30px auto; padding: 20px;
+      border: 3px solid #fff; border-radius: 8px;        /* กรอบข้อความ */
     }
-    /* หัวข้อในกล่อง success */
-    .success-box h2 {
-      font-size: 24px;           /* ขนาดตัวหนังสือ 24px */
-      margin-bottom: 10px;       /* เว้นขอบล่าง 10px */
-    }
-    /* ย่อหน้าข้อความในกล่อง */
-    .success-box p {
-      font-size: 20px;           /* ขนาดตัวหนังสือ 20px */
-      margin: 8px 0;             /* เว้นขอบบน-ล่าง 8px */
-    }
-
-    /* ปุ่มย้อนกลับ */
+    .success-box h2 { font-size: 24px; margin-bottom: 10px; }
+    .success-box p  { font-size: 20px; margin: 8px 0; }
     .btn-back {
-      display: block;            /* แสดงเป็นบล็อก */
-      width: 90%;                /* กว้าง 90% */
-      max-width: 300px;          /* ไม่เกิน 300px */
-      margin: 20px auto;         /* เว้นขอบบนล่าง 20px กึ่งกลาง */
-      padding: 15px 0;           /* ช่องว่างบนล่าง 15px */
-      border: 3px solid #fff;    /* ขอบสีขาว หนา 3px */
-      border-radius: 8px;        /* ขอบมนรัศมี 8px */
-      font-size: 18px;           /* ขนาดตัวหนังสือ 18px */
-      font-weight: bold;         /* ตัวหนา */
-      color: #fff;               /* สีตัวหนังสือขาว */
-      background: transparent;   /* พื้นหลังโปร่งใส */
-      text-decoration: none;     /* ลบเส้นใต้ลิงก์ */
-      transition: background .3s;/* ทำ transition เมื่อ hover */
+      display: block; width: 90%; max-width: 300px; margin: 20px auto;
+      padding: 15px 0; border: 3px solid #fff; border-radius: 8px;
+      font-size: 18px; font-weight: bold; color: #fff;
+      background: transparent; text-decoration: none; transition: background .3s;
     }
-    .btn-back:hover {
-      background: rgba(255,255,255,0.1); /* เปลี่ยนพื้นหลังเมื่อ hover */
-    }
+    .btn-back:hover { background: rgba(255,255,255,0.1); }
   </style>
 </head>
 <body>
   <header>
-    <!-- แสดงโลโก้ WorkPing Time เพียงหนึ่งภาพ -->
-    <img src="Logo WorkPingTime.png" alt="WorkPing Time">
+    <img src="Logowork.png" alt="WorkPing Time">  <!-- โลโก้เพียงภาพเดียว -->
   </header>
 
   <div class="success-box">
-    <!-- หัวข้อแจ้งผลสำเร็จ -->
     <h2>คุณลงชื่อเข้า​งานเรียบร้อยแล้ว</h2>
-    <hr style="border:1px solid #fff; margin:10px 0;"><!-- เส้นคั่น -->
+    <hr style="border:1px solid #fff; margin:10px 0;">
 
-    <!-- แสดงเวลาที่เช็คอิน (จะใส่ค่าใน JavaScript) -->
+    <!-- แสดงเวลาปัจจุบันเท่านั้น -->
     <p>เวลาเช็คอิน: <span id="time-display">--:--</span></p>
   </div>
 
-  <!-- ปุ่มย้อนกลับไปยังหน้าหลัก -->
   <a href="index.html" class="btn-back">กลับหน้าหลัก</a>
 
   <script>
-    // อ่านค่าพารามิเตอร์จาก URL เช่น ?name=กัญชลี&time=08%3A00
-    const params = new URLSearchParams(window.location.search);
-
-    // ดึงค่าชื่อจากพารามิเตอร์ชื่อ 'name' หรือใช้ '--' เป็นค่าเริ่มต้น
-    const name  = params.get('name') || '--';
-
-    // ดึงค่าเวลาเช็คอินจากพารามิเตอร์ชื่อ 'time'
-    // ถ้าไม่มี ก็ใช้เวลาเครื่อง ณ ปัจจุบัน
-    const time  = params.get('time') || new Date().toLocaleTimeString();
-
-    // ใส่ชื่อที่ดึงมาแสดงใน <span id="name-display">
-    document.getElementById('name-display').innerText = name;
-
-    // ใส่เวลาเช็คอินที่ดึงมาแสดงใน <span id="time-display">
-    document.getElementById('time-display').innerText = time;
+    // 1) สร้างตัวแปร now เก็บเวลาปัจจุบันในรูป HH:MM:SS
+    const now = new Date().toLocaleTimeString();
+    // 2) ใส่เวลาไปยัง <span id="time-display">
+    document.getElementById('time-display').innerText = now;
   </script>
 </body>
 </html>
