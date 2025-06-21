@@ -1,121 +1,112 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th"> <!-- ระบุว่าเป็น HTML5 และภาษาไทย -->
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>เช็คอิน – WorkPing Time</title>
+  <meta charset="UTF-8"/> <!-- กำหนดการเข้ารหัสอักขระเป็น UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"/> <!-- ปรับให้แสดงผลบนมือถือได้ดี -->
+  <title>เช็คอิน – WorkPing Time</title> <!-- ชื่อหน้านี้จะขึ้นที่แท็บเบราว์เซอร์ -->
   <style>
-    * { box-sizing:border-box; margin:0; padding:0 }
+    * { box-sizing:border-box; margin:0; padding:0 }                            /* รีเซ็ต margin/padding ให้เป็น 0 */
     html, body {
-      width:100%; height:100%;
-      font-family:'Sarabun', sans-serif;
-      background:url('background.png') center/cover no-repeat;
-      color:#fff; text-align:center;
+      width:100%; height:100%;                                                  /* ให้เติมเต็มความกว้าง-สูงของหน้าจอ */
+      font-family:'Sarabun', sans-serif;                                        /* ใช้ฟอนต์ Sarabun */
+      background:url('background.png') center/cover no-repeat;                  /* ใส่ภาพพื้นหลังแบบ cover */
+      color:#fff; text-align:center;                                            /* ข้อความสีขาว จัดกึ่งกลาง */
     }
-    header { display:flex; justify-content:center; align-items:center; gap:20px; padding:20px 0 }
-    header img { max-width:160px; height:auto }
+    header { display:flex; justify-content:center; align-items:center; padding:20px 0 } /* สร้างแถบหัวเว็บแบบ flex จัดกลาง */
+    header img { max-width:160px; height:auto }                                  /* กำหนดขนาดโลโก้ให้เหมาะสม */
     .form-container {
-      width:90%; max-width:400px; margin:20px auto; text-align:left;
+      width:90%; max-width:400px; margin:20px auto; text-align:left;            /* กรอบฟอร์มกึ่งกลาง จัดซ้าย */
     }
     .form-container label {
-      display:block; font-size:18px; margin:10px 0 5px;
+      display:block; font-size:18px; margin:10px 0 5px;                         /* ปรับขนาดและระยะห่างป้ายกำกับ */
     }
     .form-container input[type="text"],
-    .form-container select,
     .form-container input[type="file"] {
-      width:100%; padding:12px; margin-bottom:15px;
-      border:3px solid #fff; border-radius:6px;
-      background:rgba(255,255,255,0.1); color:#fff; font-size:16px;
+      width:100%; padding:12px; margin-bottom:15px;                             /* กล่องกรอกข้อมูลเต็มความกว้าง มี padding */
+      border:3px solid #fff; border-radius:6px;                                 /* ขอบขาว หนามนุ่ม */
+      background:rgba(255,255,255,0.1); color:#fff; font-size:16px;             /* พื้นหลังโปร่ง ข้อความขาว */
     }
-    .form-container select {
-      background:#fff; color:#000;
-    }
+    /* เอาส่วน select เวลาออกไปแล้ว จึงไม่ต้องเขียน styling ให้ select อีก */
     .form-container button {
-      width:100%; padding:15px; border:none; border-radius:8px;
-      background:#ff8c00; color:#fff; font-size:20px; font-weight:bold;
-      cursor:pointer; transition:opacity .2s;
+      width:100%; padding:15px; border:none; border-radius:8px;                /* ปุ่มเต็มความกว้าง ขอบมน */
+      background:#ff8c00; color:#fff; font-size:20px; font-weight:bold;        /* ปรับสีและขนาดข้อความ */
+      cursor:pointer; transition:opacity .2s;                                  /* โต้ตอบเมื่อ hover */
     }
-    .form-container button:hover { opacity:.8 }
-    #position { font-size:16px; margin-bottom:20px }
+    .form-container button:hover { opacity:.8 }                                 /* ลดความทึบเมื่อชี้ปุ่ม */
+    #position { font-size:16px; margin-bottom:20px }                            /* ข้อความตำแหน่ง GPS */
   </style>
 </head>
 <body>
   <header>
-    <img src="logowork.png" alt="WorkPing Time">
-    <img src="logo101.png" alt="กัญชลี 101">
+    <img src="logowork.png" alt="WorkPing Time">                                <!-- แสดงโลโก้ WorkPing Time ตัวเดียว -->
   </header>
 
   <div class="form-container">
-    <label for="name">กรอกชื่อ :</label>
-    <input type="text" id="name" placeholder="ชื่อของคุณ" required>
+    <label for="name">กรอกชื่อ :</label>                                        <!-- ป้ายชื่อกรอกชื่อ -->
+    <input type="text" id="name" placeholder="ชื่อของคุณ" required>             <!-- ช่องกรอกชื่อ จำเป็นต้องกรอก -->
 
-    <label for="time">เลือกเวลาที่เข้า​งาน :</label>
-    <select id="time" required>
-      <option value="">-- เลือกเวลา --</option>
-      <option value="10:00">10:00</option>
-      <option value="11:00">11:00</option>
-      <option value="15:30">15:30</option>
-      <option value="16:00">16:00</option>
-    </select>
+    <!-- เอาหัวข้อเลือกเวลาออกจาก UI ไปเรียบร้อย -->
 
-    <label for="photo">ถ่ายรูปเข้า​งาน :</label>
-    <input type="file" id="photo" accept="image/*" capture="environment" required>
+    <label for="photo">ถ่ายรูปเข้า​งาน :</label>                                <!-- ป้ายชื่อถ่ายรูป -->
+    <input type="file" id="photo" accept="image/*" capture="environment" required> <!-- อัพโหลดรูป กล้องหลัง จำเป็นต้องมี -->
 
-    <p id="position">ตำแหน่ง: --, --</p>
-    <button onclick="submitCheckin()">เข้า​งาน</button>
+    <p id="position">ตำแหน่ง: --, --</p>                                      <!-- แสดงตำแหน่ง GPS แบบ text -->
+    <button onclick="submitCheckin()">เข้า​งาน</button>                         <!-- ปุ่มส่งข้อมูลเช็คอิน -->
   </div>
 
   <script>
-    const WEBHOOK_URL = 'https://hkdk.events/dwk23f8pvzgot6';
+    const WEBHOOK_URL = 'https://hkdk.events/dwk23f8pvzgot6';                    // URL สำหรับส่งข้อมูลเช็คอิน
 
+    // ขอสิทธิ์เข้าถึงตำแหน่งผู้ใช้ แล้วอัพเดต <p id="position">
     navigator.geolocation.getCurrentPosition(pos => {
-      const lat = pos.coords.latitude.toFixed(6);
+      const lat = pos.coords.latitude.toFixed(6);                                // ตัดทศนิยม 6 ตำแหน่ง
       const lng = pos.coords.longitude.toFixed(6);
-      document.getElementById('position').innerText = `ตำแหน่ง: ${lat}, ${lng}`;
+      document.getElementById('position').innerText = `ตำแหน่ง: ${lat}, ${lng}`; // แทรกค่า lat,lng ลงบนหน้า
     });
 
     function submitCheckin() {
-      const nameInput  = document.getElementById('name');
-      const timeInput  = document.getElementById('time');
-      const photoInput = document.getElementById('photo');
+      const nameInput  = document.getElementById('name');                        // อ้างอิงช่องกรอกชื่อ
+      const file       = document.getElementById('photo').files[0];              // ดึงไฟล์ภาพที่อัพโหลด
+      const positionText = document.getElementById('position').innerText;        // ดึงข้อความตำแหน่ง
+      const [ , latRaw, lngRaw ] = positionText.split(' ');                      // แยกคำตามช่องว่าง
+      const lat = latRaw.replace(',', '');                                       // ลบเครื่องหมาย ,
+      const lng = lngRaw;
+      const time = '08:00';                                                      // กำหนดเวลาเช็คอินเป็น 08:00 อัตโนมัติ
 
-      const name = nameInput.value.trim();
-      const time = timeInput.value;
-      const file = photoInput.files[0];
-      const [ , latRaw, lngRaw ] = document.getElementById('position').innerText.split(' ');
-      const lat = latRaw.replace(',', ''), lng = lngRaw;
-
-      if (!name || !time || !file) {
-        return alert('กรุณากรอกชื่อ เลือกเวลา และถ่ายรูปให้ครบถ้วน');
+      // ตรวจว่าข้อมูลครบ
+      if (!nameInput.value.trim() || !file) {
+        return alert('กรุณากรอกชื่อ และถ่ายรูปให้ครบถ้วน');                  // แจ้งเตือนถ้าขาดข้อมูล
       }
 
-      // อ่านไฟล์เป็น base64 แล้วส่ง payload
+      // อ่านไฟล์รูปเป็น base64 เพื่อส่งทาง JSON
       const reader = new FileReader();
       reader.onload = () => {
-        const dataUrl = reader.result; // data:image/...;base64,....
-        const [meta, base64] = dataUrl.split(',');
-        const mime = meta.match(/data:(.*?);/)[1];
+        const dataUrl = reader.result;                                           // ตัวอย่าง: data:image/png;base64,iVBO...
+        const [meta, base64] = dataUrl.split(',');                               // แยกส่วน header กับ ข้อมูลจริง
+        const mime = meta.match(/data:(.*?);/)[1];                                // ดึงประเภทไฟล์ เช่น image/png
 
+        // สร้าง payload object
         const payload = {
-          name: name,
-          time: time,
-          lat: lat,
-          lng: lng,
-          type: 'checkin',
-          imageName: file.name,
-          imageMime: mime,
-          imageBase64: base64
+          name:       nameInput.value.trim(),                                     // ชื่อพนักงาน
+          time:       time,                                                       // เวลาเช็คอิน = 08:00
+          lat:        lat,                                                        // ละติจูด
+          lng:        lng,                                                        // ลองจิจูด
+          type:       'checkin',                                                  // ประเภทการส่ง
+          imageName:  file.name,                                                  // ชื่อไฟล์
+          imageMime:  mime,                                                       // มimetype
+          imageBase64: base64                                                     // ข้อมูลรูปแบบ base64
         };
 
+        // ส่งข้อมูลเข้า webhook
         fetch(WEBHOOK_URL, {
-          method: 'POST',
+          method: 'POST',                                                          // ใช้วิธี POST
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         })
-        .then(_ => window.location = `checkinSuccess.html?time=${encodeURIComponent(time)}`)
-        .catch(_ => window.location = `checkinSuccess.html?time=${encodeURIComponent(time)}`);
+        .then(_ => window.location = `checkinSuccess.html?time=${encodeURIComponent(time)}`) // ไปหน้าสำเร็จ
+        .catch(_ => window.location = `checkinSuccess.html?time=${encodeURIComponent(time)}`); // กรณี error ก็ไปหน้าสำเร็จ
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(file);                                                // สั่งอ่านไฟล์เป็น Data URL
     }
   </script>
 </body>
