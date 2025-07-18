@@ -124,4 +124,70 @@
       const lat = pos.coords.latitude.toFixed(6);             // เก็บ Latitude ทศนิยม 6 ตำแหน่ง
       const lng = pos.coords.longitude.toFixed(6);            // เก็บ Longitude ทศนิยม 6 ตำแหน่ง
       document.getElementById('position').innerText =
-        `ตำแหน่ง: ${lat}, ${lng}`;
+        `ตำแหน่ง: ${lat}, ${lng}`;                           // แสดงตำแหน่งบนหน้า
+    });
+
+    // ----- Submit Checkout -----
+    function submitCheckout() {
+      // ดึงค่าช่องชื่อและไฟล์รูป
+      const nameInput  = document.getElementById('name');
+      const file       = document.getElementById('photo').files[0];
+
+      // แยกข้อความตำแหน่งเป็น lat และ lng
+      const posText    = document.getElementById('position').innerText;
+      const [, latRaw, lngRaw] = posText.split(' ');
+      const lat = latRaw.replace(',', '');                     // ลบ comma
+      const lng = lngRaw;
+
+      // กำหนดเวลาเช็คเอาต์เป็นเวลาปัจจุบัน
+      const time = new Date().toLocaleTimeString();
+
+      // ตรวจว่าชื่อและรูปถูกกรอกครบ
+      if (!nameInput.value.trim() || !file) {
+        alert('กรุณากรอกชื่อและถ่ายรูปก่อนออกงาน');
+        return;
+      }
+
+      // อ่านไฟล์รูปเป็น Base64
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataUrl = reader.result;                         // Data URL: data:image/...;base64,...
+        const [meta, base64] = dataUrl.split(',');
+        const mime = meta.match(/data:(.*?);/)[1];             // ดึง MIME type
+
+        // สร้าง payload สำหรับส่งไป backend
+        const payload = {
+          name:        nameInput.value.trim(),                 // ชื่อพนักงาน
+          time:        time,                                   // เวลาเช็คเอาต์
+          lat:         lat,                                    // ละติจูด
+          lng:         lng,                                    // ลองจิจูด
+          type:        'checkout',                             // ประเภทการเช็คเอาต์
+          imageName:   file.name,                              // ชื่อไฟล์ภาพ
+          imageMime:   mime,                                   // MIME type ของภาพ
+          imageBase64: base64                                  // ข้อมูลภาพแบบ Base64
+        };
+
+        // ส่งข้อมูลด้วย fetch
+        fetch(WEBHOOK_URL, {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(payload)
+        })
+        .then(() => {
+          // เมื่อส่งสำเร็จ ให้ redirect ไปหน้า success พร้อมเวลาปัจจุบัน
+          window.location =
+            `checkoutSuccess.html?time=${encodeURIComponent(time)}`;
+        })
+        .catch(() => {
+          // กรณี error ก็ redirect เหมือนกัน
+          window.location =
+            `checkoutSuccess.html?time=${encodeURIComponent(time)}`;
+        });
+      };
+
+      // สั่งอ่านไฟล์รูปเป็น Data URL
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>
